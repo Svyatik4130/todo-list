@@ -1,10 +1,10 @@
-import { TodoItem } from "@/types/todoItem"
-import { useRouter } from "next/navigation"
+import TodoItem from "@/components/TodoItem";
+import { TodoItem as TodoItemType } from "@/types/todoItem";
 
 async function getTodoItem(id: string) {
-    const res = await fetch(`${process.env.BASE_URL}/api/todoList/${id}`)
-    if(!res.ok) console.log(res)
-    return res.json()
+  const res = await fetch(`${process.env.BASE_URL}/api/todos/${id}`);
+  if (!res.ok) console.log(res);
+  return res.json();
 }
 
 type Props = {
@@ -14,13 +14,7 @@ type Props = {
 }
 
 export default async function Item({params: {id}}: Props) {
-    const data: TodoItem = await getTodoItem(String(id));
+  const data: TodoItemType = await getTodoItem(id);
 
-return (
-    <div>
-        dfdf
-    <h1>{data.title}</h1>
-    <p>{data.descriptoin}</p>
-    </div>
-  )
+  return <TodoItem title={data.title} description={data.description} />;
 }
