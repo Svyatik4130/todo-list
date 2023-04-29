@@ -6,17 +6,23 @@ import { TodoItem } from "@/types/todoItem";
 import TodoListItem from "./TodoListItem";
 import TodoSearchbar from "./TodoSearchbar";
 
+const filter = (todos: TodoItem[], input: string) => {
+  return todos.filter((todo) => {
+    return todo.title.toLowerCase().includes(input.toLowerCase());
+  });
+}
+
 type Props = {
   data: TodoItem[];
 };
 
 export default function TodosAggregator({ data }: Props): JSX.Element {
-  const [todoItems, setTodoItems] = useState(data);
+  const [input, setInput] = useState("");
 
   return (
     <div>
-      <TodoSearchbar initData={data} setTodoItems={setTodoItems} />
-      {todoItems.map((todo) => (
+      <TodoSearchbar input={input} setInput={setInput} />
+      {filter(data, input).map((todo) => (
         <TodoListItem key={todo.id} id={todo.id} title={todo.title} />
       ))}
     </div>

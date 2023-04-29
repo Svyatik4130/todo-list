@@ -7,10 +7,8 @@ export default function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'GET') {
-    res.status(200).json(todoList);
-    return;
+    return res.status(200).json(todoList);
   } else {
-    res.status(400).json({ message: 'Method not supported' });
-    return;
+    return res.status(400).json({ message: 'Method not supported' });
   }
 }
